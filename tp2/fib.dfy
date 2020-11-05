@@ -18,7 +18,6 @@ method computeFib (n : nat) returns (x : nat)
   while  i < n 
     decreases n - i // variant
     invariant 0 <= i <= n
-    invariant n >= 0
     invariant x == fib(i)
     invariant y == fib(i+1)
   {
@@ -42,34 +41,34 @@ method computeFibWithoutDafny (n : nat) returns (x : nat)
 {
     // Prove P ==> wp
     assert n >= 0; // P
-    assert 0 <= 0 <= n && n >= 0 && 0 == fib(0) && 1 == fib(0+1); // wp
+    assert 0 <= 0 <= n && 0 == fib(0) && 1 == fib(0+1); // wp
     var i := 0;
     
-    assert 0 <= i <= n && n >= 0 && 0 == fib(i) && 1 == fib(i+1); // wp
+    assert 0 <= i <= n && 0 == fib(i) && 1 == fib(i+1); // wp
     x := 0;
     
-    assert 0 <= i <= n && n >= 0 && x == fib(i) && 1 == fib(i+1); // wp
+    assert 0 <= i <= n && x == fib(i) && 1 == fib(i+1); // wp
     var y := 1;
 
-    assert 0 <= i <= n && n >= 0 && x == fib(i) && y == fib(i+1); // I
+    assert 0 <= i <= n && x == fib(i) && y == fib(i+1); // I
     while  i < n
         decreases n - i // V
         invariant 0 <= i <= n
-        invariant n >= 0
+
         invariant x == fib(i)
         invariant y == fib(i+1)
     {
         ghost var v0 := n - i;
         // Prove I && C && V == V0 ==> wp
-        assert 0 <= i <= n && n >= 0 && x == fib(i) && y == fib(i+1) && i < n && n - i == v0; // I && C && V == V0
-        assert 0 <= (i+1) <= n && n >= 0 && y == fib((i+1)) && x + y == fib((i+1)+1) && 0 <= n - (i+1) < v0;// wp
+        assert 0 <= i <= n && x == fib(i) && y == fib(i+1) && i < n && n - i == v0; // I && C && V == V0
+        assert 0 <= (i+1) <= n && y == fib((i+1)) && x + y == fib((i+1)+1) && 0 <= n - (i+1) < v0;// wp
         x, y := y, x + y; // multiple assignment
-        assert 0 <= (i+1) <= n && n >= 0 && x == fib((i+1)) && y == fib((i+1)+1) && 0 <= n - (i+1) < v0; // wp
+        assert 0 <= (i+1) <= n && x == fib((i+1)) && y == fib((i+1)+1) && 0 <= n - (i+1) < v0; // wp 
         i := i + 1;
-        assert 0 <= i <= n && n >= 0 && x == fib(i) && y == fib(i+1) && 0 <= n - i < v0; // I && 0 <= V < V0
+        assert 0 <= i <= n && x == fib(i) && y == fib(i+1) && 0 <= n - i < v0; // I && 0 <= V < V0
     }
 
     // Prove I && !C ==> Q
-    assert 0 <= i <= n && n >= 0 && x == fib(i) && y == fib(i+1) && !(i < n);// I && !C
+    assert 0 <= i <= n && x == fib(i) && y == fib(i+1) && !(i < n);// I && !C
     assert x == fib(n); // Q
 }
