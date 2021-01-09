@@ -1,12 +1,9 @@
 # feup-mfes
 
-> **2020/2021** - 4rd Year, 1st Semester
+> **2020/2021** - 4th Year, 1st Semester
 >
 > **Course:** Métodos Formais em Engenharia de Software
 : [MFES page in sigarra](https://sigarra.up.pt/feup/en/ucurr_geral.ficha_uc_view?pv_ocorrencia_id=459493) | Formal Methods in Software Engineering 
-> 
-> **Project developed by:**\
-> Martim Silva ([motapinto](https://github.com/motapinto))
 >
 > **Any problems?**\
 > Start an Issue please.
